@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: excel-demo
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/demo?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    password: root
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      idle-timeout: 30000
+      connection-timeout: 20000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
