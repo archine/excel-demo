@@ -3,7 +3,6 @@ package com.gjing.projects.excel.demo.entity;
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.convert.ExcelDataConvert;
-import cn.gjing.tools.excel.metadata.ExcelType;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
 import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
@@ -13,24 +12,29 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import static cn.gjing.tools.excel.write.valid.OperatorType.LESS_THAN;
+import static cn.gjing.tools.excel.write.valid.ValidType.TEXT_LENGTH;
+
 /**
  * @author Gjing
  **/
-@Excel(type = ExcelType.XLSX)
+@Excel
 @Data
 @Entity
 @Table(name = "customer")
-public class User {
+public class SingleHead {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ExcelField("姓名")
+    @ExcelNumericValid(validType = TEXT_LENGTH,operatorType = LESS_THAN,expr1 = "4",errorContent = "姓名字数小于4")
     @ExcelAssert(expr = "#userName != null")
     @Column(name = "user_name", columnDefinition = "varchar(20)")
     private String userName;
 
     @ExcelField(value = "年龄", format = "0")
+    @ExcelDataConvert(expr1 = "#userAge * 10")
     @ExcelNumericValid(validType = ValidType.INTEGER, expr1 = "100", errorContent = "年龄不能超过100")
     @Column(name = "user_age", columnDefinition = "tinyint(2)")
     private Integer userAge;
@@ -46,10 +50,10 @@ public class User {
     @ExcelDropdownBox(link = "2")
     private String favorite;
 
-    public User() {
+    public SingleHead() {
     }
 
-    public User(String userName, Integer userAge, Gender gender) {
+    public SingleHead(String userName, Integer userAge, Gender gender) {
         this.userAge = userAge;
         this.userName = userName;
         this.gender = gender;

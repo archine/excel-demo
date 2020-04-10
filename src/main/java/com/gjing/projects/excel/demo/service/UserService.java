@@ -1,6 +1,6 @@
 package com.gjing.projects.excel.demo.service;
 
-import com.gjing.projects.excel.demo.entity.User;
+import com.gjing.projects.excel.demo.entity.SingleHead;
 import com.gjing.projects.excel.demo.enums.Gender;
 import com.gjing.projects.excel.demo.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
@@ -24,11 +24,11 @@ public class UserService {
      * @param number 数据条数
      */
     public void saveUsers(int number) {
-        List<User> userList = new ArrayList<>();
+        List<SingleHead> singleHeadList = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            userList.add(new User("用户" + i, i * 2, i % 2 == 0 ? Gender.MAN : Gender.WO_MAN));
+            singleHeadList.add(new SingleHead("用户" + i, i * 2, i % 2 == 0 ? Gender.MAN : Gender.WO_MAN));
         }
-        this.userRepository.saveAll(userList);
+        this.userRepository.saveAll(singleHeadList);
     }
 
     /**
@@ -36,7 +36,7 @@ public class UserService {
      *
      * @return List<User>
      */
-    public List<User> userList() {
+    public List<SingleHead> userList() {
         return this.userRepository.findAll();
     }
 
@@ -46,15 +46,15 @@ public class UserService {
      * @param page 页数
      * @return List<User>
      */
-    public List<User> userListPage(int page) {
+    public List<SingleHead> userListPage(int page) {
         return this.userRepository.findAll(PageRequest.of(page - 1, 5)).getContent();
     }
 
     /**
      * 添加所有数据
-     * @param userList userList
+     * @param singleHeadList userList
      */
-    public void saveUsers(List<User> userList) {
-        this.userRepository.saveAll(userList);
+    public void saveUsers(List<SingleHead> singleHeadList) {
+        this.userRepository.saveAll(singleHeadList);
     }
 }

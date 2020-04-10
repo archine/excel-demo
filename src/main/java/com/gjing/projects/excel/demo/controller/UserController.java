@@ -3,11 +3,11 @@ package com.gjing.projects.excel.demo.controller;
 import cn.gjing.tools.excel.ExcelFactory;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.valid.DefaultCascadingDropdownBoxListener;
-import com.gjing.projects.excel.demo.config.MySheetListener;
-import com.gjing.projects.excel.demo.config.MyStyleListener;
-import com.gjing.projects.excel.demo.config.MyWorkbookListener;
+import com.gjing.projects.excel.demo.config.read.MyReadRowListener;
+import com.gjing.projects.excel.demo.config.export.MyStyleListener;
+import com.gjing.projects.excel.demo.config.export.MyWorkbookListener;
 import com.gjing.projects.excel.demo.entity.MultiHead;
-import com.gjing.projects.excel.demo.entity.User;
+import com.gjing.projects.excel.demo.entity.SingleHead;
 import com.gjing.projects.excel.demo.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +42,7 @@ public class UserController {
     @GetMapping("/user_template")
     @ApiOperation("下载模板")
     public void userTemplate(HttpServletResponse response) {
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .enableValid()
                 .write(null)
                 .flush();
@@ -69,7 +68,7 @@ public class UserController {
     @GetMapping("/user_template4")
     @ApiOperation("下载带标题的模板")
     public void userTemplate4(HttpServletResponse response) {
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .writeTitle(new BigTitle(2, "我是大标题"))
                 .write(null)
                 .flush();
@@ -82,7 +81,7 @@ public class UserController {
         Map<String, String[]> boxValues = new HashMap<>(8);
         boxValues.put("男", new String[]{"游戏", "运动"});
         boxValues.put("女", new String[]{"逛街", "吃"});
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .enableValid()
                 //使用默认的级联下拉框监听器
                 .addListener(new DefaultCascadingDropdownBoxListener(boxValues))
@@ -95,17 +94,17 @@ public class UserController {
     public void userTemplate6(HttpServletResponse response) {
         Map<String, String[]> genderMap = new HashMap<>(8);
         genderMap.put("gender", new String[]{"男", "女"});
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .enableValid()
                 //使用默认的级联下拉框监听器
                 .write(null, genderMap)
                 .flush();
     }
 
-    @GetMapping("/user_export2")
+    @GetMapping("/user_export")
     @ApiOperation("导出全部数据")
     public void userExport(HttpServletResponse response) {
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .addListener(new MyWorkbookListener())
                 .write(this.userService.userList())
                 .flush();
@@ -114,7 +113,7 @@ public class UserController {
     @GetMapping("/user_export2")
     @ApiOperation("分批导出数据")
     public void userExport2(HttpServletResponse response) {
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .write(this.userService.userListPage(1))
                 .write(this.userService.userListPage(2))
                 .flush();
@@ -123,7 +122,7 @@ public class UserController {
     @GetMapping("/user_export3")
     @ApiOperation("导出数据到多个sheet")
     public void userExport3(HttpServletResponse response) {
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response)
                 .write(this.userService.userListPage(1))
                 .write(this.userService.userListPage(2), "sheet2")
                 .flush();
@@ -133,9 +132,9 @@ public class UserController {
     @ApiOperation("自定义样式导出所有数据")
     public void userExport4(HttpServletResponse response) {
         //关闭初始化默认样式监听器
-        ExcelFactory.createWriter(User.class, response)
+        ExcelFactory.createWriter(SingleHead.class, response, false)
                 //加入自己定义的样式
-                .addListener(Arrays.asList(new MyStyleListener(), new MySheetListener()))
+                .addListener(new MyStyleListener())
                 .write(this.userService.userList())
                 .flush();
     }
@@ -145,7 +144,7 @@ public class UserController {
     @PostMapping("/user_import")
     @ApiOperation("导入普通模板")
     public void userImport(MultipartFile file) throws IOException {
-        ExcelFactory.createReader(file, User.class)
+        ExcelFactory.createReader(file, SingleHead.class)
                 .subscribe(e -> this.userService.saveUsers(e))
                 .read()
                 .end();
@@ -154,7 +153,7 @@ public class UserController {
     @PostMapping("/user_import2")
     @ApiOperation("导入带有大标题的模板")
     public void userImport2(MultipartFile file) throws IOException {
-        ExcelFactory.createReader(file, User.class)
+        ExcelFactory.createReader(file, SingleHead.class)
                 .subscribe(e -> this.userService.saveUsers(e))
                 //由于上面导出大标题模板的方法设置了大标题占用两行，
                 // 所以这里列表头的下标为2，因为Excel下标是从0开始算的
@@ -170,6 +169,15 @@ public class UserController {
                 //因为表头有两级，实际表头是最下面一级，所以指定为1
                 //由于Excel下标是从0开始计算的，所以是1
                 .read(1)
+                .end();
+    }
+
+    @PostMapping("/user_import4")
+    @ApiOperation("添加监听器导入")
+    public void userImport4(MultipartFile file) throws IOException {
+        ExcelFactory.createReader(file, SingleHead.class)
+                .addListener(new MyReadRowListener())
+                .read()
                 .end();
     }
 }

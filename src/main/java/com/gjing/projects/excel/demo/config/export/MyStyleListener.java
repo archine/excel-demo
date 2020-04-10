@@ -1,4 +1,4 @@
-package com.gjing.projects.excel.demo.config;
+package com.gjing.projects.excel.demo.config.export;
 
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.write.style.ExcelStyleWriteListener;
@@ -12,23 +12,17 @@ import java.lang.reflect.Field;
  **/
 public class MyStyleListener implements ExcelStyleWriteListener {
     private CellStyle cellStyle;
-    private Workbook workbook;
 
     @Override
     public void init(Workbook workbook) {
-        this.workbook = workbook;
         this.cellStyle = workbook.createCellStyle();
-        //设置居中
         this.cellStyle.setAlignment(HorizontalAlignment.CENTER);
         this.cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
     }
 
     @Override
     public void setTitleStyle(Cell cell) {
-        CellStyle titleStyle = this.workbook.createCellStyle();
-        titleStyle.setFillBackgroundColor(IndexedColors.LIGHT_YELLOW.index);
-        titleStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        cell.setCellStyle(titleStyle);
+
     }
 
     @Override
