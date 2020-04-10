@@ -4,6 +4,7 @@ import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.convert.ExcelDataConvert;
 import cn.gjing.tools.excel.metadata.ExcelType;
+import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
 import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
 import cn.gjing.tools.excel.write.valid.ValidType;
@@ -25,6 +26,7 @@ public class User {
     private Integer id;
 
     @ExcelField("姓名")
+    @ExcelAssert(expr = "#userName != null")
     @Column(name = "user_name", columnDefinition = "varchar(20)")
     private String userName;
 
@@ -39,6 +41,10 @@ public class User {
     @Column(name = "gender", columnDefinition = "tinyint(2)")
     @Convert(converter = Gender.GenderConvert.class)
     private Gender gender;
+
+    @ExcelField("爱好")
+    @ExcelDropdownBox(link = "2")
+    private String favorite;
 
     public User() {
     }
