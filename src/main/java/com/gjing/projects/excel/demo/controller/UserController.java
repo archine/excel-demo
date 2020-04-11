@@ -96,7 +96,6 @@ public class UserController {
         genderMap.put("gender", new String[]{"男", "女"});
         ExcelFactory.createWriter(SingleHead.class, response)
                 .enableValid()
-                //使用默认的级联下拉框监听器
                 .write(null, genderMap)
                 .flush();
     }
