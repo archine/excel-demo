@@ -13,19 +13,19 @@ import java.util.List;
  **/
 public class MyReadRowListener implements ExcelRowReadListener<SingleHead> {
     @Override
-    public boolean readRow(SingleHead singleHead, List<String> headNames, int rowIndex, boolean isHead, boolean hasNext) {
-        System.out.println("读完一行");
+    public boolean readRow(SingleHead singleHead, List<Object> otherValues, int rowIndex, boolean isHead, boolean isBody) {
+        //为true时会读取结束
         return false;
     }
 
     @Override
-    public Object readCell(Object cellValue, Field field, int rowIndex, int colIndex, boolean isHead) {
-        System.out.println("读到了一格，并进行完了数据校验");
+    public Object readCell(Object cellValue, Field field, int rowIndex, int colIndex, boolean isHead, boolean isBody) {
+        //每一个单元格读取成功触发该方法
         return cellValue;
     }
 
     @Override
     public void readFinish(ExcelReaderContext<SingleHead> context) {
-        System.out.println("数据全部导入完毕了");
+        //全部读完时触发该方法
     }
 }
