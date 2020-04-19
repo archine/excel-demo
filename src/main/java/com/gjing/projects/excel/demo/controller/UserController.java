@@ -143,8 +143,11 @@ public class UserController {
     @PostMapping("/user_import")
     @ApiOperation("导入普通模板")
     public void userImport(MultipartFile file) throws IOException {
-        ExcelFactory.createReader(file, SingleHead.class)
+        ExcelFactory.createReader(file, SingleHead.class,"年龄")
+                //开启检测excel文件与映射实体是否匹配
+                .checkTemplate(true)
                 .subscribe(e -> this.userService.saveUsers(e))
+                .addListener(new MyReadRowListener())
                 .read()
                 .end();
     }
@@ -165,6 +168,7 @@ public class UserController {
     public void userImport3(MultipartFile file) throws IOException {
         ExcelFactory.createReader(file, MultiHead.class)
                 .subscribe(System.out::println)
+                .addListener(new MyReadRowListener())
                 //因为表头有两级，实际表头是最下面一级，所以指定为1
                 //由于Excel下标是从0开始计算的，所以是1
                 .read(1)

@@ -3,6 +3,7 @@ package com.gjing.projects.excel.demo.entity;
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.convert.ExcelDataConvert;
+import cn.gjing.tools.excel.metadata.ExcelType;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
 import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
@@ -18,7 +19,7 @@ import static cn.gjing.tools.excel.write.valid.ValidType.TEXT_LENGTH;
 /**
  * @author Gjing
  **/
-@Excel
+@Excel(type = ExcelType.XLSX)
 @Data
 @Entity
 @Table(name = "customer")
@@ -39,7 +40,7 @@ public class SingleHead {
     @Column(name = "user_age", columnDefinition = "tinyint(2)")
     private Integer userAge;
 
-    @ExcelField("性别")
+    @ExcelField("姓名")
     @ExcelDropdownBox(combobox = {"男", "女"})
     @ExcelDataConvert(expr1 = "#gender.desc", expr2 = "T(com.gjing.projects.excel.demo.enums.Gender).of(#gender)")
     @Column(name = "gender", columnDefinition = "tinyint(2)")

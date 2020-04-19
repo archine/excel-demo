@@ -1,5 +1,6 @@
 package com.gjing.projects.excel.demo.config.read;
 
+import cn.gjing.tools.excel.read.ExcelReaderContext;
 import cn.gjing.tools.excel.read.listener.ExcelRowReadListener;
 import com.gjing.projects.excel.demo.entity.SingleHead;
 
@@ -18,7 +19,13 @@ public class MyReadRowListener implements ExcelRowReadListener<SingleHead> {
     }
 
     @Override
-    public void readCell(SingleHead singleHead, Object cellValue, Field field, int rowIndex, int colIndex, boolean isHead) {
-        System.out.println("读完一格");
+    public Object readCell(Object cellValue, Field field, int rowIndex, int colIndex, boolean isHead) {
+        System.out.println("读到了一格，并进行完了数据校验");
+        return cellValue;
+    }
+
+    @Override
+    public void readFinish(ExcelReaderContext<SingleHead> context) {
+        System.out.println("数据全部导入完毕了");
     }
 }
