@@ -143,9 +143,8 @@ public class UserController {
     @PostMapping("/user_import")
     @ApiOperation("导入普通模板")
     public void userImport(MultipartFile file) throws IOException {
-        ExcelFactory.createReader(file, SingleHead.class,"年龄")
-                //开启检测excel文件与映射实体是否匹配
-                .checkTemplate(true)
+        ExcelFactory.createReader(file, SingleHead.class)
+                .metaInfo(false, false)
                 .subscribe(e -> this.userService.saveUsers(e))
                 .addListener(new MyReadRowListener())
                 .read()
