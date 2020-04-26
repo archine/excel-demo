@@ -45,7 +45,7 @@ public class MyStyleListener implements ExcelStyleWriteListener {
     }
 
     @Override
-    public void completeRow(Sheet sheet, Row row, int i, boolean isHead) {
+    public void completeRow(Sheet sheet, Row row, Object o, int i, boolean b) {
 
     }
 }
