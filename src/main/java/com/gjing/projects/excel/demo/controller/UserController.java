@@ -156,10 +156,11 @@ public class UserController {
     public void userImport2(MultipartFile file) throws IOException {
         ExcelFactory.createReader(file, SingleHead.class)
                 .subscribe(e -> this.userService.saveUsers(e))
+                .addListener(new MyReadRowListener())
                 //由于上面导出大标题模板的方法设置了大标题占用两行，
                 // 所以这里列表头的下标为2，因为Excel下标是从0开始算的
                 .read(2)
-                .end();
+                .finish();
     }
 
     @PostMapping("/user_import3")
