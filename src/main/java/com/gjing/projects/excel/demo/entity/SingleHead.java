@@ -3,7 +3,6 @@ package com.gjing.projects.excel.demo.entity;
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.convert.ExcelDataConvert;
-import cn.gjing.tools.excel.metadata.ExcelType;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
 import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
@@ -19,7 +18,7 @@ import static cn.gjing.tools.excel.write.valid.ValidType.TEXT_LENGTH;
 /**
  * @author Gjing
  **/
-@Excel(type = ExcelType.XLSX)
+@Excel
 @Data
 @Entity
 @Table(name = "customer")

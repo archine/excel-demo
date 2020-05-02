@@ -9,6 +9,7 @@ import com.gjing.projects.excel.demo.config.export.MyWorkbookListener;
 import com.gjing.projects.excel.demo.entity.MultiHead;
 import com.gjing.projects.excel.demo.entity.SingleHead;
 import com.gjing.projects.excel.demo.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import java.util.Map;
 /**
  * @author Gjing
  **/
+@Api(tags = "导入导出案例")
 @RestController
 public class UserController {
     @Resource
