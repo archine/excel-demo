@@ -6,59 +6,92 @@ import cn.gjing.tools.excel.driven.ExcelWrite;
 import cn.gjing.tools.excel.driven.ExcelWriteWrapper;
 import cn.gjing.tools.excel.write.BigTitle;
 import com.gjing.projects.excel.demo.config.export.MySheetListener;
+import com.gjing.projects.excel.demo.entity.MultiHead;
 import com.gjing.projects.excel.demo.entity.SingleHead;
 import com.gjing.projects.excel.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Gjing
  **/
 @Api(tags = "注解驱动方式导入导出Excel案例")
 @RestController
+@RequestMapping("/drive")
 public class ExcelDriveController {
     @Resource
     private UserService userService;
 
-    @GetMapping("/excel_drive1")
+    @GetMapping("/export1")
     @ApiOperation("下载Excel模板")
     @ExcelWrite(mapping = SingleHead.class)
     public void excelDrive1() {
     }
 
-    @GetMapping("/excel_drive2")
+    @GetMapping("/export2")
     @ApiOperation("导出带数据的excel")
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper excelDrive2() {
-        return new ExcelWriteWrapper().data(userService.userList());
+        return ExcelWriteWrapper.build(this.userService.userList());
     }
 
-    @GetMapping("/excel_drive3")
+    @GetMapping("/export3")
     @ApiOperation("导出带大标题的excel")
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper excelDrive3() {
-        return new ExcelWriteWrapper()
+        return ExcelWriteWrapper.build()
                 .title(new BigTitle(2, "啦啦啦"));
     }
 
-    @GetMapping("/excel_drive4")
+    @GetMapping("/export4")
+    @ApiOperation("直接返回大标题导出")
+    @ExcelWrite(mapping = SingleHead.class)
+    public BigTitle excelDrive4() {
+        return new BigTitle(2, "啦啦啦");
+    }
+
+    @GetMapping("/export5")
     @ApiOperation("导出时增加监听器")
     @ExcelWrite(mapping = SingleHead.class)
-    public ExcelWriteWrapper excelDrive4() {
-        return new ExcelWriteWrapper(userService.userList())
-                .addListener(new MySheetListener());
+    public ExcelWriteWrapper excelDrive5() {
+        return ExcelWriteWrapper.build(userService.userList())
+                .listener(new MySheetListener());
+    }
+
+    @GetMapping("/export6")
+    @ApiOperation("直接返回数据方式进行导出")
+    @ExcelWrite(mapping = SingleHead.class)
+    public List<SingleHead> excelDrive16() {
+        return this.userService.userList();
+    }
+
+    @GetMapping("/export7")
+    @ApiOperation("导出有数据和大标题的")
+    @ExcelWrite(mapping = SingleHead.class)
+    public ExcelWriteWrapper export7() {
+        return ExcelWriteWrapper.build(userService.userList())
+                .title(new BigTitle(3, "导出啦啦"));
+    }
+
+    @GetMapping("/export8")
+    @ApiOperation("导出多级表头的模板")
+    @ExcelWrite(mapping = MultiHead.class, multiHead = true)
+    public void export8() {
+
     }
 
     //-------------导入--------------
 
-    @PostMapping("/excel_drive5")
+    @PostMapping("/read1")
     @ApiOperation("导入excel")
     @ExcelRead(mapping = SingleHead.class)
     public ExcelReadWrapper<SingleHead> excelDrive5(MultipartFile file) throws IOException {
@@ -66,7 +99,7 @@ public class ExcelDriveController {
                 .subscribe(e -> this.userService.saveUsers(e));
     }
 
-    @PostMapping("/excel_drive6")
+    @PostMapping("/read2")
     @ApiOperation("导入带大标题的excel")
     @ExcelRead(mapping = SingleHead.class, headerIndex = 2)
     public ExcelReadWrapper<SingleHead> excelDrive6(MultipartFile file) throws IOException {

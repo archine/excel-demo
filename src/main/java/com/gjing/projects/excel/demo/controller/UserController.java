@@ -45,7 +45,7 @@ public class UserController {
     @ApiOperation("下载模板")
     public void userTemplate(HttpServletResponse response) {
         ExcelFactory.createWriter(SingleHead.class, response)
-                .enableValid()
+                .valid(true)
                 .write(null)
                 .flush();
     }
@@ -62,7 +62,7 @@ public class UserController {
     @ApiOperation("多级表头模板(开启)")
     public void userTemplate3(HttpServletResponse response) {
         ExcelFactory.createWriter(MultiHead.class, response)
-                .enableMultiHead()
+                .multiHead(true)
                 .write(null)
                 .flush();
     }
@@ -84,7 +84,7 @@ public class UserController {
         boxValues.put("男", new String[]{"游戏", "运动"});
         boxValues.put("女", new String[]{"逛街", "吃"});
         ExcelFactory.createWriter(SingleHead.class, response)
-                .enableValid()
+                .valid(true)
                 //使用默认的级联下拉框监听器
                 .addListener(new DefaultCascadingDropdownBoxListener(boxValues))
                 .write(null)
@@ -97,7 +97,7 @@ public class UserController {
         Map<String, String[]> genderMap = new HashMap<>(8);
         genderMap.put("gender", new String[]{"男", "女"});
         ExcelFactory.createWriter(SingleHead.class, response)
-                .enableValid()
+                .valid(true)
                 .write(null, genderMap)
                 .flush();
     }
@@ -150,7 +150,7 @@ public class UserController {
                 .subscribe(e -> this.userService.saveUsers(e))
                 .addListener(new MyReadRowListener())
                 .read()
-                .end();
+                .finish();
     }
 
     @PostMapping("/user_import2")
@@ -174,7 +174,7 @@ public class UserController {
                 //因为表头有两级，实际表头是最下面一级，所以指定为1
                 //由于Excel下标是从0开始计算的，所以是1
                 .read(1)
-                .end();
+                .finish();
     }
 
     @PostMapping("/user_import4")
@@ -183,6 +183,6 @@ public class UserController {
         ExcelFactory.createReader(file, SingleHead.class)
                 .addListener(new MyReadRowListener())
                 .read()
-                .end();
+                .finish();
     }
 }
