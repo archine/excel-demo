@@ -3,9 +3,9 @@ package com.gjing.projects.excel.demo.controller;
 import cn.gjing.tools.excel.ExcelFactory;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.valid.DefaultCascadingDropdownBoxListener;
-import com.gjing.projects.excel.demo.config.read.MyReadRowListener;
 import com.gjing.projects.excel.demo.config.export.MyStyleListener;
 import com.gjing.projects.excel.demo.config.export.MyWorkbookListener;
+import com.gjing.projects.excel.demo.config.read.MyReadRowListener;
 import com.gjing.projects.excel.demo.entity.MultiHead;
 import com.gjing.projects.excel.demo.entity.SingleHead;
 import com.gjing.projects.excel.demo.service.UserService;
@@ -102,6 +102,23 @@ public class UserController {
                 .flush();
     }
 
+    @GetMapping("/user_template7")
+    @ApiOperation(value = "导出多级标题模板，并忽略某些表头",notes = "忽略的表头将不会出现在Excle文件中")
+    public void userTemplate7(HttpServletResponse response) {
+        ExcelFactory.createWriter(MultiHead.class, response, "体重")
+                .multiHead(true)
+                .write(null)
+                .flush();
+    }
+
+    @GetMapping("/user_template8")
+    @ApiOperation("导出模板，并忽略某表头")
+    public void userTemplate8(HttpServletResponse response) {
+        ExcelFactory.createWriter(SingleHead.class, response, "爱好")
+                .write(null)
+                .flush();
+    }
+
     @GetMapping("/user_export")
     @ApiOperation("导出全部数据")
     public void userExport(HttpServletResponse response) {
@@ -182,6 +199,24 @@ public class UserController {
     public void userImport4(MultipartFile file) throws IOException {
         ExcelFactory.createReader(file, SingleHead.class)
                 .addListener(new MyReadRowListener())
+                .read()
+                .finish();
+    }
+
+    @PostMapping("/user_import5")
+    @ApiOperation(value = "导入多级表头并忽略某些表头", notes = "忽略主要用在导入的Excel文件和映射实体表头数量不匹配")
+    public void userImport5(MultipartFile file) throws IOException {
+        ExcelFactory.createReader(file, MultiHead.class, "身高")
+                .subscribe(System.out::println)
+                .read(1)
+                .finish();
+    }
+
+    @PostMapping("/user_import6")
+    @ApiOperation("导入普通模板并忽略某些表头")
+    public void userImport6(MultipartFile file) throws IOException {
+        ExcelFactory.createReader(file, SingleHead.class, "爱好")
+                .subscribe(System.out::println)
                 .read()
                 .finish();
     }

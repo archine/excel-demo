@@ -89,11 +89,18 @@ public class ExcelDriveController {
 
     }
 
+    @GetMapping("/export9")
+    @ApiOperation("导出模板并忽略某个表头")
+    @ExcelWrite(mapping = SingleHead.class, ignores = "爱好")
+    public void export9() {
+
+    }
+
     //-------------导入--------------
 
     @PostMapping("/read1")
     @ApiOperation("导入excel")
-    @ExcelRead
+    @ExcelRead(ignores = "性别")
     public ExcelReadWrapper<SingleHead> read1(MultipartFile file) throws IOException {
         return ExcelReadWrapper.build(SingleHead.class)
                 .data(file)
@@ -107,5 +114,23 @@ public class ExcelDriveController {
         return ExcelReadWrapper.build(SingleHead.class)
                 .data(file)
                 .subscribe(e -> this.userService.saveUsers(e));
+    }
+
+    @PostMapping("/read3")
+    @ApiOperation("导入多级表头的模板")
+    @ExcelRead(headerIndex = 1)
+    public ExcelReadWrapper<MultiHead> read3(MultipartFile file) throws IOException {
+        return ExcelReadWrapper.build(MultiHead.class)
+                .data(file)
+                .subscribe(e -> System.out.println(e.toString()));
+    }
+
+    @PostMapping("/read4")
+    @ApiOperation("导入excel并忽略某个表头")
+    @ExcelRead(ignores = "爱好")
+    public ExcelReadWrapper<SingleHead> read4(MultipartFile file) throws IOException {
+        return ExcelReadWrapper.build(SingleHead.class)
+                .data(file)
+                .subscribe(System.out::println);
     }
 }

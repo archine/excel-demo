@@ -39,7 +39,7 @@ public class SingleHead {
     @Column(name = "user_age", columnDefinition = "tinyint(2)")
     private Integer userAge;
 
-    @ExcelField("姓名")
+    @ExcelField("性别")
     @ExcelDropdownBox(combobox = {"男", "女"})
     @ExcelDataConvert(expr1 = "#gender.desc", expr2 = "T(com.gjing.projects.excel.demo.enums.Gender).of(#gender)")
     @Column(name = "gender", columnDefinition = "tinyint(2)")
