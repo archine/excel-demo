@@ -93,7 +93,7 @@ public class ExcelDriveController {
 
     @PostMapping("/read1")
     @ApiOperation("导入excel")
-    @ExcelRead(mapping = SingleHead.class)
+    @ExcelRead
     public ExcelReadWrapper<SingleHead> read1(MultipartFile file) throws IOException {
         return ExcelReadWrapper.build(SingleHead.class)
                 .data(file)
@@ -102,7 +102,7 @@ public class ExcelDriveController {
 
     @PostMapping("/read2")
     @ApiOperation("导入带大标题的excel")
-    @ExcelRead(mapping = SingleHead.class, headerIndex = 2)
+    @ExcelRead(headerIndex = 2)
     public ExcelReadWrapper<SingleHead> read2(MultipartFile file) throws IOException {
         return ExcelReadWrapper.build(SingleHead.class)
                 .data(file)
