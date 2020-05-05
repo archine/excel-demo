@@ -71,7 +71,7 @@ public class UserController {
     @ApiOperation("下载带标题的模板")
     public void userTemplate4(HttpServletResponse response) {
         ExcelFactory.createWriter(SingleHead.class, response)
-                .writeTitle(new BigTitle(2, "我是大标题"))
+                .writeTitle(new BigTitle(2,"我是大标题"))
                 .write(null)
                 .flush();
     }
