@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +70,7 @@ public class UserController {
     @ApiOperation("下载带标题的模板")
     public void userTemplate4(HttpServletResponse response) {
         ExcelFactory.createWriter(SingleHead.class, response)
-                .writeTitle(new BigTitle(2,"我是大标题"))
+                .writeTitle(new BigTitle("我是大标题"))
                 .write(null)
                 .flush();
     }
@@ -160,34 +159,31 @@ public class UserController {
     //-------------------------------导入--------------------------------------
 
     @PostMapping("/user_import")
-    @ApiOperation("导入普通模板")
-    public void userImport(MultipartFile file) throws IOException {
+    @ApiOperation("导入普通模板并检查模板是否匹配")
+    public void userImport(MultipartFile file) {
         ExcelFactory.createReader(file, SingleHead.class)
-                .metaInfo(false, false)
-                .subscribe(e -> this.userService.saveUsers(e))
-                .addListener(new MyReadRowListener())
+                .check(true)
+                .addListener(new MyReadRowListener(this.userService))
                 .read()
                 .finish();
     }
 
     @PostMapping("/user_import2")
     @ApiOperation("导入带有大标题的模板")
-    public void userImport2(MultipartFile file) throws IOException {
+    public void userImport2(MultipartFile file) {
         ExcelFactory.createReader(file, SingleHead.class)
                 .subscribe(e -> this.userService.saveUsers(e))
-                .addListener(new MyReadRowListener())
                 //由于上面导出大标题模板的方法设置了大标题占用两行，
-                // 所以这里列表头的下标为2，因为Excel下标是从0开始算的
+                //所以这里列表头的下标为2，因为Excel下标是从0开始算的
                 .read(2)
                 .finish();
     }
 
     @PostMapping("/user_import3")
     @ApiOperation("导入复杂表头的模板")
-    public void userImport3(MultipartFile file) throws IOException {
+    public void userImport3(MultipartFile file) {
         ExcelFactory.createReader(file, MultiHead.class)
                 .subscribe(System.out::println)
-                .addListener(new MyReadRowListener())
                 //因为表头有两级，实际表头是最下面一级，所以指定为1
                 //由于Excel下标是从0开始计算的，所以是1
                 .read(1)
@@ -196,16 +192,16 @@ public class UserController {
 
     @PostMapping("/user_import4")
     @ApiOperation("添加监听器导入")
-    public void userImport4(MultipartFile file) throws IOException {
+    public void userImport4(MultipartFile file) {
         ExcelFactory.createReader(file, SingleHead.class)
-                .addListener(new MyReadRowListener())
+                .addListener(new MyReadRowListener(this.userService))
                 .read()
                 .finish();
     }
 
     @PostMapping("/user_import5")
     @ApiOperation(value = "导入多级表头并忽略某些表头", notes = "忽略主要用在导入的Excel文件和映射实体表头数量不匹配")
-    public void userImport5(MultipartFile file) throws IOException {
+    public void userImport5(MultipartFile file) {
         ExcelFactory.createReader(file, MultiHead.class, "身高")
                 .subscribe(System.out::println)
                 .read(1)
@@ -214,7 +210,7 @@ public class UserController {
 
     @PostMapping("/user_import6")
     @ApiOperation("导入普通模板并忽略某些表头")
-    public void userImport6(MultipartFile file) throws IOException {
+    public void userImport6(MultipartFile file) {
         ExcelFactory.createReader(file, SingleHead.class, "爱好")
                 .subscribe(System.out::println)
                 .read()

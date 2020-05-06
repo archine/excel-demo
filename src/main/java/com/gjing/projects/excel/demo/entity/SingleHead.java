@@ -18,7 +18,7 @@ import static cn.gjing.tools.excel.write.valid.ValidType.TEXT_LENGTH;
 /**
  * @author Gjing
  **/
-@Excel
+@Excel("Excel模板")
 @Data
 @Entity
 @Table(name = "customer")

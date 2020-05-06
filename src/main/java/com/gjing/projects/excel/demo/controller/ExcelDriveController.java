@@ -33,7 +33,7 @@ public class ExcelDriveController {
 
     @GetMapping("/export1")
     @ApiOperation("下载Excel模板")
-    @ExcelWrite(mapping = SingleHead.class)
+    @ExcelWrite(mapping = SingleHead.class,value = "Excel导入模板")
     public void excelDrive1() {
     }
 
@@ -56,7 +56,7 @@ public class ExcelDriveController {
     @ApiOperation("直接返回大标题导出")
     @ExcelWrite(mapping = SingleHead.class)
     public BigTitle excelDrive4() {
-        return new BigTitle(2, "啦啦啦");
+        return new BigTitle("啦啦啦");
     }
 
     @GetMapping("/export5")
