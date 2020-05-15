@@ -3,7 +3,9 @@ package com.gjing.projects.excel.demo.entity;
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.convert.ExcelDataConvert;
+import cn.gjing.tools.excel.metadata.ExcelColor;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
+import cn.gjing.tools.excel.write.merge.Merge;
 import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
 import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
 import cn.gjing.tools.excel.write.valid.ValidType;
@@ -27,13 +29,13 @@ public class SingleHead {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ExcelField("姓名")
-    @ExcelNumericValid(validType = TEXT_LENGTH,operatorType = LESS_THAN,expr1 = "4",errorContent = "姓名字数小于4")
+    @ExcelField(value = "姓名", autoMerge = @Merge(enable = true))
+    @ExcelNumericValid(validType = TEXT_LENGTH, operatorType = LESS_THAN, expr1 = "4", errorContent = "姓名字数小于4")
     @ExcelAssert(expr = "#userName != null")
     @Column(name = "user_name", columnDefinition = "varchar(20)")
     private String userName;
 
-    @ExcelField(value = "年龄", format = "0")
+    @ExcelField(value = "年龄", format = "0", autoMerge = @Merge(enable = true))
     @ExcelDataConvert(expr1 = "#userAge * 10")
     @ExcelNumericValid(validType = ValidType.INTEGER, expr1 = "100", errorContent = "年龄不能超过100")
     @Column(name = "user_age", columnDefinition = "tinyint(2)")
@@ -46,7 +48,7 @@ public class SingleHead {
     @Convert(converter = Gender.GenderConvert.class)
     private Gender gender;
 
-    @ExcelField("爱好")
+    @ExcelField(value = "爱好", color = ExcelColor.CORNFLOWER_BLUE, fontColor = ExcelColor.ORANGE)
     @ExcelDropdownBox(link = "2")
     private String favorite;
 

@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class MyReadRowListener implements ExcelRowReadListener<SingleHead> {
 
-    private List<SingleHead> headList;
+    private final List<SingleHead> headList;
     private final UserService userService;
 
     public MyReadRowListener(UserService userService) {
