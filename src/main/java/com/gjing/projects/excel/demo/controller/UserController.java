@@ -1,6 +1,7 @@
 package com.gjing.projects.excel.demo.controller;
 
 import cn.gjing.tools.excel.ExcelFactory;
+import cn.gjing.tools.excel.metadata.ExcelColor;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.valid.DefaultCascadingDropdownBoxListener;
 import com.gjing.projects.excel.demo.config.export.MyStyleListener;
@@ -70,7 +71,7 @@ public class UserController {
     @ApiOperation("下载带标题的模板")
     public void userTemplate4(HttpServletResponse response) {
         ExcelFactory.createWriter(SingleHead.class, response)
-                .writeTitle(new BigTitle("我是大标题"))
+                .writeTitle(BigTitle.builder().content("拉拉").fontColor(ExcelColor.ORANGE).build())
                 .write(null)
                 .flush();
     }
