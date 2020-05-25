@@ -79,7 +79,7 @@ public class ExcelDriveController {
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper export7() {
         return ExcelWriteWrapper.build(userService.userList())
-                .title(new BigTitle(3, "导出啦啦"));
+                .title(new BigTitle("导出啦啦"));
     }
 
     @GetMapping("/export8")

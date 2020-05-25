@@ -71,7 +71,8 @@ public class UserController {
     @ApiOperation("下载带标题的模板")
     public void userTemplate4(HttpServletResponse response) {
         ExcelFactory.createWriter(SingleHead.class, response)
-                .writeTitle(BigTitle.builder().content("拉拉").fontColor(ExcelColor.ORANGE).build())
+                .writeTitle(BigTitle.builder().content("拉拉").color(ExcelColor.ORANGE).build())
+                .writeTitle(BigTitle.builder().content("拉拉").index(1).color(ExcelColor.DARK_GREEN).build())
                 .write(null)
                 .flush();
     }
