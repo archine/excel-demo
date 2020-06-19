@@ -6,9 +6,7 @@ import cn.gjing.tools.excel.convert.ExcelDataConvert;
 import cn.gjing.tools.excel.metadata.ExcelColor;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.merge.Merge;
-import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
-import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
-import cn.gjing.tools.excel.write.valid.ValidType;
+import cn.gjing.tools.excel.write.valid.*;
 import com.gjing.projects.excel.demo.enums.Gender;
 import lombok.Data;
 

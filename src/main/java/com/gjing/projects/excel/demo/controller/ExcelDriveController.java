@@ -33,7 +33,7 @@ public class ExcelDriveController {
 
     @GetMapping("/export1")
     @ApiOperation("下载Excel模板")
-    @ExcelWrite(mapping = SingleHead.class,value = "Excel导入模板")
+    @ExcelWrite(mapping = SingleHead.class, value = "Excel导入模板", needValid = true)
     public void excelDrive1() {
     }
 
@@ -117,7 +117,7 @@ public class ExcelDriveController {
     }
 
     @PostMapping("/read3")
-    @ApiOperation(value = "导入多级表头的模板",notes = "最下级的表头属于真实表头，所以映射实体的表头有两级，因此这里要指定真实表头开始下标，" +
+    @ApiOperation(value = "导入多级表头的模板", notes = "最下级的表头属于真实表头，所以映射实体的表头有两级，因此这里要指定真实表头开始下标，" +
             "Excel是从0开始算的，所以这里写1")
     @ExcelRead(headerIndex = 1)
     public ExcelReadWrapper<MultiHead> read3(MultipartFile file) throws IOException {
