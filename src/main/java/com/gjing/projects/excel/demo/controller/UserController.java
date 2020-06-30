@@ -2,6 +2,7 @@ package com.gjing.projects.excel.demo.controller;
 
 import cn.gjing.tools.excel.ExcelFactory;
 import cn.gjing.tools.excel.metadata.ExcelColor;
+import cn.gjing.tools.excel.metadata.ExcelType;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.valid.DefaultCascadingDropdownBoxListener;
 import com.gjing.projects.excel.demo.config.export.MyStyleListener;
@@ -21,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -126,6 +129,50 @@ public class UserController {
         ExcelFactory.createWriter(SingleHead.class, response)
                 .addListener(new MyWorkbookListener())
                 .write(this.userService.userList())
+                .flush();
+    }
+
+    @GetMapping("/simple_export")
+    @ApiOperation("简单类型的导出")
+    public void simpleExport(HttpServletResponse response) {
+        List<String[]> headNames = new ArrayList<>();
+        String[] s2 = new String[]{"年龄"};
+        String[] s = new String[]{"姓名"};
+        String[] s3 = new String[]{"性别"};
+        headNames.add(s2);
+        headNames.add(s);
+        headNames.add(s3);
+
+        List<List<Object>> data = new ArrayList<>();
+        List<Object> d = new ArrayList<>();
+        d.add(22);
+        d.add("张三");
+        d.add("男");
+        List<Object> e = new ArrayList<>();
+        e.add(22);
+        e.add("张四");
+        e.add("男");
+        List<Object> f = new ArrayList<>();
+        f.add(21);
+        f.add("张五");
+        f.add("女");
+        List<Object> g = new ArrayList<>();
+        g.add(21);
+        g.add("张五");
+        g.add("女");
+        List<Object> h = new ArrayList<>();
+        h.add(21);
+        h.add("张五");
+        h.add("女");
+        data.add(d);
+        data.add(e);
+        data.add(f);
+        data.add(g);
+        data.add(h);
+        ExcelFactory.createSimpleWriter("测试手动传表头", response, ExcelType.XLS)
+                .head(headNames)
+                .multiHead(true)
+                .write(data)
                 .flush();
     }
 

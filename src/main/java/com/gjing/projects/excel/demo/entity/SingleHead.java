@@ -7,6 +7,7 @@ import cn.gjing.tools.excel.metadata.ExcelColor;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.merge.Merge;
 import cn.gjing.tools.excel.write.valid.*;
+import com.gjing.projects.excel.demo.config.export.SingleHeadCallback;
 import com.gjing.projects.excel.demo.enums.Gender;
 import lombok.Data;
 
@@ -39,7 +40,7 @@ public class SingleHead {
     @Column(name = "user_age", columnDefinition = "tinyint(2)")
     private Integer userAge;
 
-    @ExcelField("性别")
+    @ExcelField(value = "性别",autoMerge = @Merge(enable = true,callback = SingleHeadCallback.class))
     @ExcelDropdownBox(combobox = {"男", "女"})
     @ExcelDataConvert(expr1 = "#gender.desc", expr2 = "T(com.gjing.projects.excel.demo.enums.Gender).of(#gender)")
     @Column(name = "gender", columnDefinition = "tinyint(2)")
