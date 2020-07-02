@@ -28,6 +28,7 @@ public class SingleHead {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ExcelRepeatValid
     @ExcelField(value = "姓名", autoMerge = @Merge(enable = true))
     @ExcelNumericValid(validType = TEXT_LENGTH, operatorType = LESS_THAN, expr1 = "4", errorContent = "姓名字数小于4")
     @ExcelAssert(expr = "#userName != null")
