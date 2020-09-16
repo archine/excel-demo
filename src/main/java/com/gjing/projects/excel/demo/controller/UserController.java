@@ -85,7 +85,7 @@ public class UserController {
     public void userTemplate5(HttpServletResponse response) {
         //传入二级下拉框的内容，key为你父级对应的值，以下设置了根据性别不同展示不同的爱好选项
         Map<String, String[]> boxValues = new HashMap<>(8);
-        boxValues.put("男", new String[]{"游戏", "运动"});
+        boxValues.put("男、啦啦", new String[]{"游戏", "运动"});
         boxValues.put("女", new String[]{"逛街", "吃"});
         ExcelFactory.createWriter(SingleHead.class, response)
                 .valid(true)

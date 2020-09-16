@@ -13,8 +13,8 @@ public enum Gender {
      * 性别
      */
     MAN(1,"男"), WO_MAN(2, "女");
-    private int type;
-    private String desc;
+    private final int type;
+    private final String desc;
 
     Gender(int type, String desc) {
         this.type = type;
