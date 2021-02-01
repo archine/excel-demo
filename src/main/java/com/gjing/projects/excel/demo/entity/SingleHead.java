@@ -3,15 +3,19 @@ package com.gjing.projects.excel.demo.entity;
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.convert.ExcelDataConvert;
-import cn.gjing.tools.excel.metadata.ExcelColor;
+import cn.gjing.tools.excel.metadata.ExcelType;
 import cn.gjing.tools.excel.read.valid.ExcelAssert;
 import cn.gjing.tools.excel.write.merge.Merge;
-import cn.gjing.tools.excel.write.valid.*;
+import cn.gjing.tools.excel.write.valid.ExcelDropdownBox;
+import cn.gjing.tools.excel.write.valid.ExcelNumericValid;
+import cn.gjing.tools.excel.write.valid.ExcelRepeatValid;
+import cn.gjing.tools.excel.write.valid.ValidType;
 import com.gjing.projects.excel.demo.config.export.SingleHeadCallback;
 import com.gjing.projects.excel.demo.enums.Gender;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 import static cn.gjing.tools.excel.write.valid.OperatorType.LESS_THAN;
 import static cn.gjing.tools.excel.write.valid.ValidType.TEXT_LENGTH;
@@ -19,7 +23,7 @@ import static cn.gjing.tools.excel.write.valid.ValidType.TEXT_LENGTH;
 /**
  * @author Gjing
  **/
-@Excel("Excel模板")
+@Excel(value = "Excel模板",type = ExcelType.XLSX)
 @Data
 @Entity
 @Table(name = "customer")
@@ -48,7 +52,10 @@ public class SingleHead {
     @Convert(converter = Gender.GenderConvert.class)
     private Gender gender;
 
-    @ExcelField(value = "爱好", color = ExcelColor.CORNFLOWER_BLUE, fontColor = ExcelColor.ORANGE)
+    @ExcelField(value = "生日",format = "yyyy-MM-dd")
+    private Date birthday;
+
+
     @ExcelDropdownBox(link = "2")
     private String favorite;
 

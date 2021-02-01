@@ -1,5 +1,7 @@
 package com.gjing.projects.excel.demo.controller;
 
+import cn.gjing.http.HttpClient;
+import cn.gjing.http.HttpMethod;
 import cn.gjing.tools.excel.ExcelFactory;
 import cn.gjing.tools.excel.metadata.ExcelColor;
 import cn.gjing.tools.excel.metadata.ExcelType;
@@ -264,5 +266,21 @@ public class UserController {
                 .subscribe(System.out::println)
                 .read()
                 .finish();
+    }
+
+    public static void main(String[] args) {
+        String host = "https://ncovdata.market.alicloudapi.com/ncov/cityDiseaseInfoWithTrend";
+        String appcode = "b13f40b7f7f74de99bb6fb16ca04a562";
+        Map<String, String> headers = new HashMap<>();
+        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+        headers.put("Authorization", "APPCODE " + appcode);
+        try {
+            HttpClient.builder(host, HttpMethod.GET, Object.class)
+                    .header(headers)
+                    .execute()
+                    .listener(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
