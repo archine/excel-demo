@@ -49,7 +49,7 @@ public class ExcelDriveController {
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper excelDrive3() {
         return ExcelWriteWrapper.build()
-                .title(new BigTitle("啦啦啦"));
+                .title(BigTitle.builder().content("啦啦啦").build());
     }
 
     @GetMapping("/export4")
