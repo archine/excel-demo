@@ -41,7 +41,10 @@ public class ExcelDriveController {
     @ApiOperation("导出带数据的excel")
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper excelDrive2() {
-        return ExcelWriteWrapper.build(this.userService.userList());
+        return ExcelWriteWrapper.build()
+                .title(BigTitle.builder().content("啦啦啦").build())
+                .data(this.userService.userList())
+                .data(this.userService.userList());
     }
 
     @GetMapping("/export3")
@@ -56,7 +59,7 @@ public class ExcelDriveController {
     @ApiOperation("直接返回大标题导出")
     @ExcelWrite(mapping = SingleHead.class)
     public BigTitle excelDrive4() {
-        return new BigTitle("啦啦啦");
+        return BigTitle.builder().content("啦啦啦").build();
     }
 
     @GetMapping("/export5")
@@ -79,7 +82,7 @@ public class ExcelDriveController {
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper export7() {
         return ExcelWriteWrapper.build(userService.userList())
-                .title(new BigTitle("导出啦啦"));
+                .title(BigTitle.builder().content("啦啦啦").build());
     }
 
     @GetMapping("/export8")
@@ -99,7 +102,7 @@ public class ExcelDriveController {
 
     @PostMapping("/read1")
     @ApiOperation("导入excel")
-    @ExcelRead(ignores = "性别")
+    @ExcelRead(ignores = "性别",check = true)
     public ExcelReadWrapper<SingleHead> read1(MultipartFile file) throws IOException {
         return ExcelReadWrapper.build(SingleHead.class)
                 .data(file)

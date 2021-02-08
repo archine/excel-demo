@@ -55,7 +55,6 @@ public class SingleHead {
     @ExcelField(value = "生日",format = "yyyy-MM-dd")
     private Date birthday;
 
-
     @ExcelDropdownBox(link = "2")
     private String favorite;
 
