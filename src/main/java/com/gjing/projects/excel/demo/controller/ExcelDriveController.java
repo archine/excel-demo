@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class ExcelDriveController {
     public ExcelWriteWrapper excelDrive3() {
         return ExcelWriteWrapper.build()
                 .title(BigTitle.builder().content("啦啦啦").build())
-                .data(new ArrayList<>());
+                .data(null);
     }
 
     @GetMapping("/export4")
