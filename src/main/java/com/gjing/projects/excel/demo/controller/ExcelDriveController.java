@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +53,8 @@ public class ExcelDriveController {
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper excelDrive3() {
         return ExcelWriteWrapper.build()
-                .title(BigTitle.builder().content("啦啦啦").build());
+                .title(BigTitle.builder().content("啦啦啦").build())
+                .data(new ArrayList<>());
     }
 
     @GetMapping("/export4")
@@ -81,8 +83,9 @@ public class ExcelDriveController {
     @ApiOperation("导出有数据和大标题的")
     @ExcelWrite(mapping = SingleHead.class)
     public ExcelWriteWrapper export7() {
-        return ExcelWriteWrapper.build(userService.userList())
-                .title(BigTitle.builder().content("啦啦啦").build());
+        return ExcelWriteWrapper.build()
+                .title(BigTitle.builder().content("啦啦啦").build())
+                .data(this.userService.userList());
     }
 
     @GetMapping("/export8")
@@ -111,7 +114,7 @@ public class ExcelDriveController {
 
     @PostMapping("/read2")
     @ApiOperation("导入带大标题的excel")
-    @ExcelRead(headerIndex = 2)
+    @ExcelRead(headerIndex = 2,metaInfo = true)
     public ExcelReadWrapper<SingleHead> read2(MultipartFile file) throws IOException {
         return ExcelReadWrapper.build(SingleHead.class)
                 .data(file)
