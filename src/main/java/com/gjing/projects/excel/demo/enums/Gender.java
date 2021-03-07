@@ -2,8 +2,6 @@ package com.gjing.projects.excel.demo.enums;
 
 import lombok.Getter;
 
-import javax.persistence.AttributeConverter;
-
 /**
  * @author Gjing
  **/
@@ -38,17 +36,4 @@ public enum Gender {
         }
         return null;
     }
-
-    public static class GenderConvert implements AttributeConverter<Gender, Integer> {
-        @Override
-        public Integer convertToDatabaseColumn(Gender gender) {
-            return gender.type;
-        }
-
-        @Override
-        public Gender convertToEntityAttribute(Integer integer) {
-            return of(integer);
-        }
-    }
-
 }
