@@ -15,6 +15,6 @@ public class Book3AutoMergeCallback implements ExcelAutoMergeCallback<Book3> {
     @Override
     public boolean mergeY(Book3 book3, Field field, String headerName, int colIndex, int index) {
         // 只有书籍价格小于20才需要合并
-        return "小鸭子的故事".equals(book3.getBookName());
+        return book3.getPrice().doubleValue() < 20;
     }
 }
