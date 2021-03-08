@@ -169,7 +169,7 @@ public class ExcelBindWriteController {
     @ApiOperation(value = "单级表头模板导出-->增加数据校验注解", notes = "应用场景为导出模板后，但是要限制某列的单元格输入的数据规范")
     public void writeTemplate2(HttpServletResponse response) {
         ExcelFactory.createWriter(BookValid.class, response)
-                // 该属性为是否开启导出时给Excel文件增加校验，导出时要设置valid()属性为true，否则无效
+                // 该属性为是否开启导出模板时给Excel文件启用校验注解，默认false
                 .valid(true)
                 .write(null)
                 .flush();
@@ -200,8 +200,7 @@ public class ExcelBindWriteController {
         ExcelFactory.createWriter(BookCascade.class, response)
                 // 同样需要设置valid属性为true
                 .valid(true)
-                // 这里需要我们添加一个监听器，该监听器是默认实现的，实现了ExcelCascadingDropdownBoxListener接口。
-                // 将我们前面定义的下拉框值传给这个监听器
+                // 这里需要我们添加框架中提供的级联监听器到执行器
                 .addListener(new DefaultCascadingDropdownBoxListener(boxValues))
                 .write(null)
                 .flush();
