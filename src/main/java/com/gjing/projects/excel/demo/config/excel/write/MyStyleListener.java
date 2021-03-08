@@ -43,6 +43,7 @@ public class MyStyleListener implements ExcelStyleWriteListener, ExcelCellWriteL
             this.headStyle = this.workbook.createCellStyle();
             // 设置背景颜色为天蓝色
             this.headStyle.setFillForegroundColor(ExcelColor.SKY_BLUE.index);
+            this.headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             // 设置字体上下左右居中，超出单元格宽度自动换行
             this.headStyle.setAlignment(HorizontalAlignment.CENTER);
             this.headStyle.setVerticalAlignment(VerticalAlignment.CENTER);
