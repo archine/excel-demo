@@ -72,7 +72,7 @@ public class ExcelSimpleWriteController {
     }
 
     @GetMapping("/write4")
-    @ApiOperation("单级表头导出-->设置监听器")
+    @ApiOperation("单级表头导出-->设置行监听器")
     public void simpleWrite4(HttpServletResponse response) {
         ExcelFactory.createSimpleWriter("书籍列表", response, ExcelType.XLSX)
                 .head(this.getSingleHead())
