@@ -3,9 +3,7 @@ package com.gjing.projects.excel.demo.entity.read;
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.metadata.ExcelType;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +15,9 @@ import java.util.List;
 @Getter
 @Setter
 @Excel(type = ExcelType.XLSX)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExcelEntity {
     @ExcelField("省")
     private String province;
