@@ -2,6 +2,7 @@ package com.gjing.projects.excel.demo.entity.write;
 
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
+import cn.gjing.tools.excel.metadata.ExcelType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author Gjing
  **/
 @Data
-@Excel("旅行社出游情况")
+@Excel(value = "旅行社出游情况",type = ExcelType.XLSX)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Multi {

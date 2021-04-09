@@ -5,7 +5,7 @@ import cn.gjing.tools.excel.metadata.ExcelColor;
 import cn.gjing.tools.excel.metadata.RowType;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.listener.ExcelCellWriteListener;
-import cn.gjing.tools.excel.write.style.ExcelStyleWriteListener;
+import cn.gjing.tools.excel.write.listener.ExcelStyleWriteListener;
 import org.apache.poi.ss.usermodel.*;
 
 import java.lang.reflect.Field;
