@@ -48,7 +48,7 @@ public class Book3 {
         Book3 book1 = new Book3("童话世界", new BigDecimal("20.2"), Gender.MAN);
         Book3 book2 = new Book3("脑筋急转弯", new BigDecimal("20.22"), Gender.WO_MAN);
         Book3 book3 = new Book3("鲁滨逊漂流记", new BigDecimal("18.8"), Gender.WO_MAN);
-        Book3 book4 = new Book3("小鸭子的故事", new BigDecimal("18.8"), Gender.WO_MAN);
+        Book3 book4 = new Book3("小鸭子的故事", new BigDecimal("18.8"), Gender.MAN);
         Book3 book5 = new Book3("小鸭子的故事", new BigDecimal("21.2"), Gender.WO_MAN);
         books.add(book1);
         books.add(book2);

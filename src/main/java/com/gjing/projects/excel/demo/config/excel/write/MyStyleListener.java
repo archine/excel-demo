@@ -2,9 +2,7 @@ package com.gjing.projects.excel.demo.config.excel.write;
 
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.metadata.ExcelColor;
-import cn.gjing.tools.excel.metadata.RowType;
 import cn.gjing.tools.excel.write.BigTitle;
-import cn.gjing.tools.excel.write.listener.ExcelCellWriteListener;
 import cn.gjing.tools.excel.write.listener.ExcelStyleWriteListener;
 import org.apache.poi.ss.usermodel.*;
 
@@ -21,7 +19,7 @@ import java.lang.reflect.Field;
  *
  * @author Gjing
  **/
-public class MyStyleListener implements ExcelStyleWriteListener, ExcelCellWriteListener {
+public class MyStyleListener implements ExcelStyleWriteListener {
     private Workbook workbook;
     private CellStyle headStyle;
     private CellStyle bodyStyle;
@@ -64,16 +62,5 @@ public class MyStyleListener implements ExcelStyleWriteListener, ExcelCellWriteL
         }
         // 给当前单元格增加上样式
         cell.setCellStyle(this.bodyStyle);
-    }
-
-    @Override
-    public void completeCell(Sheet sheet, Row row, Cell cell, ExcelField excelField, Field field, int index,
-                             int colIndex, RowType rowType) {
-        // 判断当前行是属于表头还是正文，然后分别调用各自的设置样式的监听器
-        if (rowType == RowType.HEAD) {
-            this.setHeadStyle(row, cell, excelField, field, index, colIndex);
-            return;
-        }
-        this.setBodyStyle(row, cell, excelField, field, index, colIndex);
     }
 }

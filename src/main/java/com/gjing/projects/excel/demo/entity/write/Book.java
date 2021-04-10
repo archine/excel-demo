@@ -2,6 +2,7 @@ package com.gjing.projects.excel.demo.entity.write;
 
 import cn.gjing.tools.excel.Excel;
 import cn.gjing.tools.excel.ExcelField;
+import cn.gjing.tools.excel.metadata.ExcelType;
 import com.gjing.projects.excel.demo.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author Gjing
  **/
 @Data
-@Excel("书籍")
+@Excel(value = "书籍",type = ExcelType.XLS)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {

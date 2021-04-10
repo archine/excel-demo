@@ -76,7 +76,7 @@ public class ExcelBindWriteController {
     public void bindWrite4(HttpServletResponse response) {
         ExcelFactory.createWriter(Book.class, response)
                 // 通过该方法写出一个大标题
-                .writeTitle(BigTitle.of("我是在数据前面的大标题"))
+                .writeTitle(BigTitle.of("我是大标题"))
                 .write(Book.getData())
                 .flush();
     }
