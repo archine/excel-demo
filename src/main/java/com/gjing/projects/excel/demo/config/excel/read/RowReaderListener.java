@@ -1,7 +1,6 @@
 package com.gjing.projects.excel.demo.config.excel.read;
 
 import cn.gjing.tools.excel.metadata.RowType;
-import cn.gjing.tools.excel.read.ExcelReaderContext;
 import cn.gjing.tools.excel.read.listener.ExcelRowReadListener;
 import com.gjing.projects.excel.demo.entity.read.EmissionFactor;
 import com.gjing.projects.excel.demo.entity.read.ExcelEntity;
@@ -92,7 +91,7 @@ public class RowReaderListener implements ExcelRowReadListener<ExcelEntity> {
      * 该方法会在导入的Excel文件所有数据读取完毕后触发，意味着导入结束了
      */
     @Override
-    public void readFinish(ExcelReaderContext<ExcelEntity> context) {
+    public void readFinish() {
         // 将后面的数据直接加入到数据
         this.excelEntity.setFactors(this.factorList);
         this.data.add(this.excelEntity);

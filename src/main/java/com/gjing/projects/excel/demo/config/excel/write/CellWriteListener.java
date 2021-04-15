@@ -12,8 +12,9 @@ import java.lang.reflect.Field;
 
 /**
  * 单元格写出监听器
- *
+ * <p>
  * 这里模拟业务场景，每一个单元格写出完成后，都往下合并一行
+ *
  * @author Gjing
  **/
 public class CellWriteListener implements ExcelCellWriteListener {
@@ -38,8 +39,6 @@ public class CellWriteListener implements ExcelCellWriteListener {
         // 这里是单元格赋值之前的操作，需要返回单元格内容，也就是说，这里是单元格赋值之前最后一次的数据操作，该方法触发在数据转换器之后
         // 注意：当你返回null时，那么将不会对此单元格进行赋值。这里就涉及到一个应用场景，当这个单元格的内容是个集合的时候，这时候就不要帮我自动赋值了，我需要自己对这个集合进行操作
         //      比如集合每一条数据都创建新的一行进行插入
-
-
         // 这里我们就直接返回值了， 不做其他操作了
         return value;
     }

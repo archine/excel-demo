@@ -2,6 +2,7 @@ package com.gjing.projects.excel.demo.config.excel.write;
 
 import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.metadata.ExcelColor;
+import cn.gjing.tools.excel.metadata.aware.ExcelWorkbookAware;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.listener.ExcelStyleWriteListener;
 import org.apache.poi.ss.usermodel.*;
@@ -19,14 +20,13 @@ import java.lang.reflect.Field;
  *
  * @author Gjing
  **/
-public class MyStyleListener implements ExcelStyleWriteListener {
+public class MyStyleListener implements ExcelStyleWriteListener, ExcelWorkbookAware {
     private Workbook workbook;
     private CellStyle headStyle;
     private CellStyle bodyStyle;
 
     @Override
-    public void init(Workbook workbook) {
-        // 该方法主要用于初始化，
+    public void setWorkbook(Workbook workbook) {
         this.workbook = workbook;
     }
 
