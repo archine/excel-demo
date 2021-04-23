@@ -39,7 +39,7 @@ public class BookValid {
     @ExcelField(value = "价格", format = "0.00")
     @ExcelRepeatValid(errorContent = "不允许输入同样的价格")
     // 添加导入的数据断言，输入的价格必须要大于0，否则数据没达到要求，抛出断言异常
-    @ExcelAssert(expr = "#price.doubleValue()>0",message = "价格必须大于0")
+    @ExcelAssert(expr = "#price.doubleValue()>0", message = "价格必须大于0")
     private BigDecimal price;
 
     /**
