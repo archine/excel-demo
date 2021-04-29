@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  * @author Gjing
  **/
 @Data
-@Excel(value = "书籍",type = ExcelType.XLS)
+@Excel(value = "书籍",type = ExcelType.XLSX)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
@@ -31,6 +32,10 @@ public class Book {
 
     @ExcelField("图书性别")
     private Gender gender;
+
+    @ExcelField(value = "时间", format = "yyyy-MM-dd")
+    private Date date;
+
     /**
      * 获取模拟数据
      *
@@ -38,9 +43,9 @@ public class Book {
      */
     public static List<Book> getData() {
         List<Book> books = new ArrayList<>();
-        Book book1 = new Book("童话世界", new BigDecimal("20.2"), Gender.MAN);
-        Book book2 = new Book("脑筋急转弯", new BigDecimal("33.4"), Gender.WO_MAN);
-        Book book3 = new Book("鲁滨逊漂流记", new BigDecimal("18.8"), Gender.MAN);
+        Book book1 = new Book("童话世界", new BigDecimal("20.2"), Gender.MAN,new Date());
+        Book book2 = new Book("脑筋急转弯", new BigDecimal("33.4"), Gender.WO_MAN,new Date());
+        Book book3 = new Book("鲁滨逊漂流记", new BigDecimal("18.8"), Gender.MAN, new Date());
         books.add(book1);
         books.add(book2);
         books.add(book3);
