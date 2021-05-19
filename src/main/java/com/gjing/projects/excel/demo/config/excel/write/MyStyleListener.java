@@ -1,13 +1,11 @@
 package com.gjing.projects.excel.demo.config.excel.write;
 
-import cn.gjing.tools.excel.ExcelField;
 import cn.gjing.tools.excel.metadata.ExcelColor;
+import cn.gjing.tools.excel.metadata.ExcelFieldProperty;
 import cn.gjing.tools.excel.metadata.aware.ExcelWorkbookAware;
 import cn.gjing.tools.excel.write.BigTitle;
 import cn.gjing.tools.excel.write.listener.ExcelStyleWriteListener;
 import org.apache.poi.ss.usermodel.*;
-
-import java.lang.reflect.Field;
 
 /**
  * 自定义样式监听器，应用场景主要是看我默认给的样式不爽，觉得太丑，哈哈哈~~~
@@ -36,7 +34,7 @@ public class MyStyleListener implements ExcelStyleWriteListener, ExcelWorkbookAw
     }
 
     @Override
-    public void setHeadStyle(Row row, Cell cell, ExcelField excelField, Field field, int index, int colIndex) {
+    public void setHeadStyle(Row row, Cell cell, ExcelFieldProperty excelFieldProperty, int index, int colIndex) {
         if (this.headStyle == null) {
             this.headStyle = this.workbook.createCellStyle();
             // 设置背景颜色为天蓝色
@@ -52,7 +50,7 @@ public class MyStyleListener implements ExcelStyleWriteListener, ExcelWorkbookAw
     }
 
     @Override
-    public void setBodyStyle(Row row, Cell cell, ExcelField excelField, Field field, int index, int colIndex) {
+    public void setBodyStyle(Row row, Cell cell, ExcelFieldProperty excelFieldProperty, int index, int colIndex) {
         if (this.bodyStyle == null) {
             this.bodyStyle = this.workbook.createCellStyle();
             // 设置字体上下左右居中，超出单元格宽度自动换行

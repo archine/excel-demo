@@ -12,8 +12,8 @@ import java.util.List;
  **/
 public class SimpleWriteMergeCallback implements ExcelAutoMergeCallback<List<Object>> {
     @Override
-    public boolean mergeY(List<Object> objects, Field field, String headerName, int colIndex, int index) {
-        // 我们这里对第三行数据开始才需要进行相同内容合并, index为数据索引，0开始
+    public boolean mergeY(List<Object> objects, Field field, int colIndex, int index) {
+        // 第三条数据开始才需要合并，因为index是从0开始计算的，所以这里是大于1
         return index > 1;
     }
 }

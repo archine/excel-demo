@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 public class RowWriteListener implements ExcelRowWriteListener {
     @Override
     public void completeRow(Sheet sheet, Row row, Object o, int index, RowType rowType) {
+
         log.info("当前行类型: {}, 当前写完第{}条的数据", rowType.name(), index);
         if (rowType == RowType.HEAD) {
             // 往后追加创建一个单元格

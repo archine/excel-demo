@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 public class Book3AutoMergeCallback implements ExcelAutoMergeCallback<Book3> {
 
     @Override
-    public boolean mergeY(Book3 book3, Field field, String headerName, int colIndex, int index) {
+    public boolean mergeY(Book3 book3, Field field, int colIndex, int index) {
         // 只有书籍价格小于20才需要合并
         return book3.getPrice().doubleValue() < 20;
     }

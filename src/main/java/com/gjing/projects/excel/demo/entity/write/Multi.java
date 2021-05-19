@@ -20,11 +20,11 @@ import java.util.List;
  * @author Gjing
  **/
 @Data
-@Excel(value = "旅行社出游情况",type = ExcelType.XLSX)
+@Excel(value = "旅行社出游情况",type = ExcelType.XLS)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Multi {
-    @ExcelField({"旅行社", "旅行社", "旅行社"})
+    @ExcelField(value = {"旅行社", "旅行社", "旅行社"})
     private String tour;
 
     @ExcelField(value = {"国内", "门票消费金额", "门票消费金额"}, format = "0.00")

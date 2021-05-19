@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
  **/
 public class EmptyListener implements ExcelEmptyReadListener<Book> {
     @Override
-    public boolean readEmpty(Book book, Field field, ExcelField excelField, int rowIndex, int colIndex) {
+    public boolean readEmpty(Book book, Field field, int rowIndex, int colIndex) {
         // 返回false表示当前这一行不在进行读了，可以开始读下一行了。当然你也可以直接在这里抛出一个你们的业务异常，因为必填项未填
         return false;
     }

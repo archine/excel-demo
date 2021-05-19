@@ -1,9 +1,9 @@
 package com.gjing.projects.excel.demo.controller;
 
 import cn.gjing.tools.excel.ExcelFactory;
+import cn.gjing.tools.excel.metadata.ExcelFieldProperty;
 import cn.gjing.tools.excel.metadata.ExcelType;
 import cn.gjing.tools.excel.write.BigTitle;
-import cn.gjing.tools.excel.write.callback.ExcelAutoMergeCallback;
 import com.gjing.projects.excel.demo.config.excel.write.RowWriteListener;
 import com.gjing.projects.excel.demo.config.excel.write.SimpleWriteMergeCallback;
 import com.gjing.projects.excel.demo.enums.Gender;
@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Excel简单模式导出控制器(主要用于没有固定表头的情况)
@@ -85,13 +87,12 @@ public class ExcelSimpleWriteController {
     @GetMapping("/write5")
     @ApiOperation(value = "单级表头导出-->设置列数据自动合并", notes = "应用场景为某一列的相邻单元格内容一致时需要合并")
     public void simpleWrite5(HttpServletResponse response) {
-        // 定义回调类map，key为真实表头的值，我们这里给图书性别这一列增加合并回调
-        Map<String, ExcelAutoMergeCallback<?>> mergeCallbackMap = new HashMap<>(8);
-        mergeCallbackMap.put("图书性别", new SimpleWriteMergeCallback());
+        // 由于这里要给指定Excel列增加数据合并回调了，因此就不能通过直接传表头了，改成传ExcelFieldProperty
         ExcelFactory.createSimpleWriter("书籍列表", response, ExcelType.XLSX)
-                .head(this.getSingleHead())
+                // 这里通过head2进行设置表头属性
+                .head2(this.getSingleHeadProperty())
                 // 传递进去
-                .write(this.getData(), mergeCallbackMap)
+                .write(this.getData())
                 .flush();
     }
 
@@ -100,8 +101,8 @@ public class ExcelSimpleWriteController {
     public void simpleWrite6(HttpServletResponse response) {
         ExcelFactory.createSimpleWriter("旅行社出游情况", response, ExcelType.XLSX)
                 .head(this.getMultiHead())
-                // 和工厂的绑定模式一样，需要设置多级表头属性为true
-                .multiHead(true)
+                // 和工厂的绑定模式一样，需要设置多级表头属性, 当然如果
+                .multiHead()
                 .write(this.getData2())
                 .flush();
     }
@@ -117,6 +118,27 @@ public class ExcelSimpleWriteController {
         arr.add(new String[]{"价格"});
         arr.add(new String[]{"图书性别"});
         return arr;
+    }
+
+    /**
+     * 获取通过ExcelFiledProperty包装起来的模拟表头数据
+     *
+     * @return ExcelFieldProperty
+     */
+    private List<ExcelFieldProperty> getSingleHeadProperty() {
+        List<ExcelFieldProperty> properties = new ArrayList<>();
+        properties.add(ExcelFieldProperty.builder()
+                .value(new String[]{"名称"})
+                .build());
+        properties.add(ExcelFieldProperty.builder()
+                .value(new String[]{"价格"})
+                .build());
+        properties.add(ExcelFieldProperty.builder()
+                .value(new String[]{"图书性别"})
+                .autoMerge(true)
+                .mergeCallback(SimpleWriteMergeCallback.class)
+                .build());
+        return properties;
     }
 
     /**

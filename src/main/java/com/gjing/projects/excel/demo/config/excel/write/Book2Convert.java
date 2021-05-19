@@ -3,7 +3,6 @@ package com.gjing.projects.excel.demo.config.excel.write;
 import cn.gjing.tools.excel.convert.DataConvert;
 import com.gjing.projects.excel.demo.entity.write.Book2;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 /**
@@ -15,13 +14,13 @@ import java.math.BigDecimal;
  **/
 public class Book2Convert implements DataConvert<Book2> {
     @Override
-    public Object toEntityAttribute(Object o, Field field) {
+    public Object toEntityAttribute(Book2 book2, Object o) {
         // 将单元格里的价钱都乘以10
         return new BigDecimal(o.toString()).multiply(BigDecimal.valueOf(10));
     }
 
     @Override
-    public Object toExcelAttribute(Book2 book2, Object o, Field field) {
+    public Object toExcelAttribute(Book2 book2, Object o) {
         // 将所有书籍的价格都改为8.8
         return 8.8;
     }

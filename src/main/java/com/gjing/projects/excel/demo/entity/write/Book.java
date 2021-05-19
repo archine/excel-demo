@@ -24,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Book {
     // 设置该表头字段 required属性为true，意味着名称为必填
-    @ExcelField(value = "名称",required = true)
+    @ExcelField(value = "名称",required = true,format = "@")
     private String bookName;
 
     @ExcelField(value = "价格", format = "0.00")
