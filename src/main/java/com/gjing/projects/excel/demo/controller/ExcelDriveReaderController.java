@@ -45,7 +45,7 @@ public class ExcelDriveReaderController {
     @PostMapping("/read1")
     @ApiOperation("单级表头导入")
     @ExcelRead
-    public ExcelReadWrapper<Book> driveRead1(@RequestPart MultipartFile file) {
+    public ExcelReadWrapper driveRead1(@RequestPart MultipartFile file) {
         return ExcelReadWrapper.build(Book.class)
                 // 通过结果监听器将数据输出
                 .subscribe(System.out::println)

@@ -85,6 +85,7 @@ public class ExcelBindWriteController {
     @ApiOperation(value = "单级表头导出-->不同Excel实体的数据导出到不同的sheet中", notes = "应用场景在同一个excel文件中，需要导出不同类型的数据")
     public void bindWrite5(HttpServletResponse response) {
         ExcelFactory.createWriter(Book.class, response)
+                .addListener(new RowWriteListener())
                 .write(Book.getData())
                 // 由于要导出其他Excel实体的数据，那么这里需要重置一下Excel实体,
                 .resetExcelClass(Water.class)
@@ -212,7 +213,7 @@ public class ExcelBindWriteController {
     public void writeTemplate9(HttpServletResponse response) {
         ExcelFactory.createWriter(Book.class, response)
                 // 默认是开启的，所以不用手动设置，除非你想关闭他
-                .bind(true)
+                .bind("lalal")
                 .write(null)
                 .flush();
     }

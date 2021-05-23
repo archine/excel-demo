@@ -101,7 +101,7 @@ public class ExcelSimpleWriteController {
     public void simpleWrite6(HttpServletResponse response) {
         ExcelFactory.createSimpleWriter("旅行社出游情况", response, ExcelType.XLSX)
                 .head(this.getMultiHead())
-                // 和工厂的绑定模式一样，需要设置多级表头属性, 当然如果
+                // 和工厂的绑定模式一样，需要设置多级表头属性
                 .multiHead()
                 .write(this.getData2())
                 .flush();
