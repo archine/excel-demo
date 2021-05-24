@@ -20,7 +20,7 @@ import java.util.List;
  * @author Gjing
  **/
 @Data
-@Excel(value = "旅行社出游情况",type = ExcelType.XLS)
+@Excel(value = "旅行社出游情况",type = ExcelType.XLSX)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Multi {

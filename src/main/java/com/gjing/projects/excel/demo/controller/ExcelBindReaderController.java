@@ -130,8 +130,8 @@ public class ExcelBindReaderController {
         // 由于Excel实体没有增加数据转换器，所以枚举会转换失败，所以我们这里先忽略
         ExcelFactory.createReader(file, Book.class, "图书性别")
                 .subscribe(System.out::println)
-                // 将检查属性设置为true
-                .check(true)
+                // 开启文件检查
+                .check()
                 .read()
                 .finish();
     }

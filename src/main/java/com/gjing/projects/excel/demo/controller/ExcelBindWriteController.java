@@ -27,6 +27,7 @@ import java.util.Map;
  * 注意：1、在链式调用的时候，只有write()方法和writeTitle()方法为执行方法，其他方法为属性配置（比如添加监听器，开启多级表头等等）,
  * ----   所以要设置属性的话需要在执行方法调用前.方法最后一定要调用flush()方法进行数据刷新到文件
  * ---- 2、Excel会根据执行方法的调用顺序先后执行.
+ * ---- 3、链式调用时，如若多次调用了bind()方法，那么以最后一次为主，所以仅需调用一次即可，且在调用flush()方法前
  *
  * @author Gjing
  **/
@@ -212,7 +213,7 @@ public class ExcelBindWriteController {
     @ApiOperation(value = "单级表头模板导出-->设置导出的Excel模板文件与当前Excel实体进行绑定", notes = "应用场景在防止用户在导入的时候，导入与Excel实体不匹配的Excel文件")
     public void writeTemplate9(HttpServletResponse response) {
         ExcelFactory.createWriter(Book.class, response)
-                // 默认是开启的，所以不用手动设置，除非你想关闭他
+                // 手动设置绑定的key，该key最好唯一，他意味着是你该接口导出的模板文件的身份证，此处优先级高于@Excel注解中设置的
                 .bind("lalal")
                 .write(null)
                 .flush();

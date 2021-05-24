@@ -52,6 +52,7 @@ public class ExcelDrivenWriteController {
     public ExcelWriteWrapper driveWrite2() {
         return ExcelWriteWrapper.build(Book.getData())
                 .data(Book.getData())
+                .key("1111111")
                 .data(Book.getData());
     }
 
@@ -61,8 +62,8 @@ public class ExcelDrivenWriteController {
     public ExcelWriteWrapper driveWrite3() {
         return ExcelWriteWrapper.build()
                 .title(BigTitle.of("我是前面的大标题"))
-                .data(Book.getData())
-                .title(BigTitle.of("我是后面的大标题"));
+                .data(null);
+//                .title(BigTitle.of("我是后面的大标题"));
     }
 
     @GetMapping("/write5")

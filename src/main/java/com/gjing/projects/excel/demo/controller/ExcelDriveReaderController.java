@@ -44,8 +44,8 @@ public class ExcelDriveReaderController {
      */
     @PostMapping("/read1")
     @ApiOperation("单级表头导入")
-    @ExcelRead
-    public ExcelReadWrapper driveRead1(@RequestPart MultipartFile file) {
+    @ExcelRead(ignores = "图书性别")
+    public ExcelReadWrapper<Book> driveRead1(@RequestPart MultipartFile file) {
         return ExcelReadWrapper.build(Book.class)
                 // 通过结果监听器将数据输出
                 .subscribe(System.out::println)
@@ -59,7 +59,7 @@ public class ExcelDriveReaderController {
      */
     @PostMapping("/read2")
     @ApiOperation(value = "单级表头导入--带大标题", notes = "同样需要真实表头开始下标")
-    @ExcelRead(headerIndex = 2)
+    @ExcelRead(headerIndex = 2, ignores = "图书性别")
     public ExcelReadWrapper<Book> driveRead2(@RequestPart MultipartFile file) {
         return ExcelReadWrapper.build(Book.class)
                 .subscribe(System.out::println)
@@ -103,11 +103,12 @@ public class ExcelDriveReaderController {
      */
     @PostMapping("/read5")
     @ApiOperation("单级表头导入-->开启文件匹配检查")
-    @ExcelRead(check = true)
+    @ExcelRead(check = true, ignores = "图书性别")
     public ExcelReadWrapper<Book> driveRead5(@RequestPart MultipartFile file) {
         return ExcelReadWrapper.build(Book.class)
                 // 通过结果监听器将数据输出
                 .subscribe(System.out::println)
+//                .check("1111")
                 .data(file);
     }
 }

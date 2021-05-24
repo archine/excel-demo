@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Excel简单模式导出控制器(主要用于没有固定表头的情况)
+ * Excel简单模式导出控制器(主要用于没有实体类对应的情况)
  * <p>
  * 通过工厂模式进行导出，也就是通过 ExcelFactory.createSimpleWriter().xx().flush();
  * 使用方式和绑定模式{@link ExcelBindWriteController} 没有区别哈，唯一区别的就是简单模式创建的是一个SimpleWriter.
@@ -28,11 +28,13 @@ import java.util.List;
  * 注意：1、在链式调用的时候，只有write()方法和writeTitle()方法为执行方法，其他方法为属性配置（比如添加监听器，开启多级表头，设置表头等等），
  * ----   所以要设置属性的话需要在执行方法调用前.方法最后一定要调用flush()方法进行数据刷新到文件
  * ---- 2、Excel会根据执行方法的调用顺序先后执行。
- * ---- 3、简单模式不支持设置数据转换器和数据校验器
+ * ---- 3、简单模式暂不支持数据校验器
+ * ---- 4、简单模式下默认关闭绑定，如若需要绑定，可以通过bind()方法进行设置
+ * ---- 5、链式调用时，如若多次调用了bind()方法，那么以最后一次为主，所以仅需调用一次即可，且在调用flush()方法前
  *
  * @author Gjing
  **/
-@Api(tags = "工厂模式导出Excel (无绑定模式)")
+@Api(tags = "工厂模式导出Excel (无实体类模式)")
 @RestController
 @RequestMapping("/simple/write")
 public class ExcelSimpleWriteController {
