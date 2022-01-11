@@ -45,7 +45,7 @@ public class Book {
         List<Book> books = new ArrayList<>();
         Book book1 = new Book("童话世界", new BigDecimal("20.2"), Gender.MAN,new Date());
         Book book2 = new Book("脑筋急转弯", new BigDecimal("33.4"), Gender.WO_MAN,new Date());
-        Book book3 = new Book("鲁滨逊漂流记", new BigDecimal("18.8"), Gender.MAN, new Date());
+        Book book3 = new Book("鲁滨逊漂流记点击我觉得文杰覅偶极矩发我份", new BigDecimal("18.8"), Gender.MAN, new Date());
         books.add(book1);
         books.add(book2);
         books.add(book3);
