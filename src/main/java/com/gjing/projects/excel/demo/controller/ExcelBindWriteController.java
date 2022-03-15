@@ -173,7 +173,7 @@ public class ExcelBindWriteController {
         ExcelFactory.createWriter(BookValid.class, response)
                 // 该属性为是否开启导出模板时给Excel文件启用校验注解，默认false
                 .valid(true)
-                .writeTitle(BigTitle.of("啦啦啦"))
+//                .writeTitle(BigTitle.of("啦啦啦"))
                 .write(null)
                 .flush();
     }

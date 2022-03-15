@@ -19,7 +19,7 @@ import java.util.List;
  * @author Gjing
  **/
 @Data
-@Excel(value = "书籍",type = ExcelType.XLS)
+@Excel(value = "书籍",type = ExcelType.XLS,bodyHeight = 0)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
